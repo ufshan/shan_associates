@@ -1,14 +1,76 @@
-nav a::after{
-content:"";
-position:absolute;
-width:0%;
-height:2px;
-left:0;
-bottom:-4px;
-background:white;
-transition:0.3s;
+/* Base styles with better reset and accessibility */
+nav a {
+  position: relative;
+  text-decoration: none;
+  color: currentColor; /* Inherits parent color instead of default blue */
+  display: inline-block;
+  padding: 0.25rem 0; /* Better click area */
 }
 
-nav a:hover::after{
-width:100%;
+/* Improved underline animation */
+nav a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor; /* Matches link color */
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother easing */
+  border-radius: 2px; /* Rounded edges for modern look */
+}
+
+/* Hover state */
+nav a:hover::after {
+  width: 100%;
+}
+
+/* Optional: Keep underline visible on active page */
+nav a.active::after {
+  width: 100%;
+  background: currentColor;
+}
+
+/* Optional: Reverse animation (from center) */
+nav a.center-underline::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+nav a.center-underline:hover::after {
+  width: 100%;
+}
+
+/* Optional: Slide from right effect */
+nav a.right-underline::after {
+  left: auto;
+  right: 0;
+}
+
+nav a.right-underline:hover::after {
+  width: 100%;
+  left: 0;
+  right: auto;
+}
+
+/* Accessibility: Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  nav a::after {
+    transition: none;
+  }
+  
+  nav a:hover::after {
+    width: 100%;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+nav a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+nav a:focus-visible::after {
+  width: 100%;
 }
