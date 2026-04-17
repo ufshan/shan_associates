@@ -1,23 +1,50 @@
 /**
- * Reports Core Web Vitals to the provided callback function.
+ * Reports Core Web Vitals metrics to the provided callback function.
  * 
- * @param {Function} onPerfEntry - Callback function to receive metrics.
- *   Can be a custom reporter or console.log.
+ * This function dynamically imports the `web-vitals` library and reports
+ * Cumulative Layout Shift (CLS), First Input Delay (FID), First Contentful Paint (FCP),
+ * Largest Contentful Paint (LCP), and Time to First Byte (TTFB).
+ * 
+ * **Usage in Development:**
+ * ```js
+ * reportWebVitals(console.log);
+ * ```
+ * 
+ * **Usage in Production (Google Analytics 4):**
+ * ```js
+ * reportWebVitals(({ name, delta, id }) => {
+ *   if (window.gtag) {
+ *     window.gtag('event', name, {
+ *       event_category: 'Web Vitals',
+ *       event_label: id,
+ *       value: Math.round(name === 'CLS' ? delta * 1000 : delta),
+ *       non_interaction: true,
+ *     });
+ *   }
+ * });
+ * ```
+ * 
+ * @param {Function} onPerfEntry - Callback function that receives performance metrics.
+ *   The callback is invoked once per metric with an object containing:
+ *   - `name` {string} - Metric name ('CLS', 'FID', 'FCP', 'LCP', 'TTFB')
+ *   - `value` {number} - Current metric value
+ *   - `delta` {number} - Delta between current and previous value
+ *   - `id` {string} - Unique identifier for the metric instance
+ *   - `entries` {PerformanceEntry[]} - Associated performance entries
+ * 
+ * @returns {void}
  * 
  * @example
- * // Log to console in development
+ * // Log all metrics to console (development only)
  * reportWebVitals(console.log);
  * 
  * @example
- * // Send to Google Analytics 4
- * reportWebVitals(({ name, delta, id }) => {
- *   gtag('event', name, {
- *     event_category: 'Web Vitals',
- *     event_label: id,
- *     value: Math.round(name === 'CLS' ? delta * 1000 : delta),
- *     non_interaction: true,
- *   });
+ * // Send to custom analytics endpoint
+ * reportWebVitals((metric) => {
+ *   navigator.sendBeacon('/api/vitals', JSON.stringify(metric));
  * });
+ * 
+ * @see {@link https://web.dev/vitals/|Web Vitals Documentation}
  */
 const reportWebVitals = (onPerfEntry) => {
   // Guard: Ensure callback is provided and is a function
@@ -26,7 +53,6 @@ const reportWebVitals = (onPerfEntry) => {
   }
 
   // Only load and report metrics in production (optional)
-  // Comment out if you want metrics in development too
   if (process.env.NODE_ENV !== 'production') {
     console.debug('[Web Vitals] Skipping reporting in development mode.');
     return;
