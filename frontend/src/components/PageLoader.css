@@ -17,7 +17,7 @@
   animation: fadeIn 0.2s ease forwards;
 }
 
-/* Prevent scrolling while loader is visible */
+/* Prevent background scrolling while loader is active */
 body:has(.page-loader) {
   overflow: hidden;
 }
@@ -36,7 +36,7 @@ body:has(.page-loader) {
 }
 
 /* -------------------------------
-   Loading Text
+   Loading Text & Brand
 ------------------------------- */
 .page-loader p {
   margin-top: 1.5rem;
@@ -46,42 +46,33 @@ body:has(.page-loader) {
   color: #1e293b;
   letter-spacing: 0.3px;
   opacity: 0.8;
+  text-align: center;
 }
 
-/* Optional brand accent */
-.page-loader p::after {
-  content: 'SHAN ASSOCIATES';
+/* Brand subtitle (SHAN ASSOCIATES) */
+.page-loader__brand {
   display: block;
   font-size: 0.75rem;
   font-weight: 400;
   color: #0a7f2e;
-  margin-top: 4px;
+  margin-top: 6px;
   opacity: 0.7;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 /* -------------------------------
-   Alternative: Skeleton Layout (for longer loads)
+   Custom Content Wrapper
 ------------------------------- */
-.page-loader.skeleton {
-  display: grid;
-  place-items: center;
-  padding: 2rem;
+.page-loader__custom {
+  margin-bottom: 1.5rem;
 }
 
-.page-loader.skeleton .spinner {
-  grid-area: 1 / 1;
-}
-
-.page-loader.skeleton .skeleton-placeholder {
-  grid-area: 1 / 1;
-  width: 100%;
-  max-width: 600px;
-  height: 200px;
-  background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 12px;
-  opacity: 0.6;
+/* Optional: Pulsing logo animation if you use an image */
+.page-loader__custom .logo-spinner {
+  width: 80px;
+  height: 80px;
+  animation: pulse 1.5s ease-in-out infinite;
 }
 
 /* -------------------------------
@@ -105,12 +96,14 @@ body:has(.page-loader) {
   }
 }
 
-@keyframes shimmer {
-  0% {
-    background-position: 200% 0;
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
   }
-  100% {
-    background-position: -200% 0;
+  50% {
+    opacity: 0.7;
+    transform: scale(0.95);
   }
 }
 
@@ -124,10 +117,15 @@ body:has(.page-loader) {
     border-top-color: #0a7f2e;
     opacity: 0.7;
   }
-  
-  .page-loader.skeleton .skeleton-placeholder {
+
+  .page-loader__custom .logo-spinner {
     animation: none;
-    background: #e2e8f0;
+    opacity: 0.8;
+  }
+
+  .page-loader {
+    animation: none;
+    opacity: 1;
   }
 }
 
@@ -140,15 +138,33 @@ body:has(.page-loader) {
     height: 36px;
     border-width: 3px;
   }
-  
+
   .page-loader p {
     font-size: 0.9rem;
+  }
+
+  .page-loader__brand {
+    font-size: 0.7rem;
   }
 }
 
 /* -------------------------------
-   Accessibility: Hide from screen readers when loading
+   Accessibility Utilities
 ------------------------------- */
+/* Visually hidden (screen‑reader only) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Optional: Hide loader from screen readers when not active */
 .page-loader[aria-hidden="true"] {
   display: none;
 }
