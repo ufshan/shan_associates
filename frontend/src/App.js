@@ -1,36 +1,49 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-// Components (eagerly loaded for immediate UI)
+// Components (eagerly loaded)
 import Navbar from "./components/Navbar";
 import WhatsAppButton from "./components/WhatsappButton";
 import Footer from "./components/Footer";
-import PageLoader from "./components/PageLoader"; // Optional loading fallback
+import PageLoader from "./components/PageLoader";
+import ScrollToTop from "./components/ScrollToTop";
 
-// Lazy‑load page components for code splitting
+// Lazy-loaded page components
 const Home = lazy(() => import("./pages/Home"));
 const Products = lazy(() => import("./pages/Products"));
 const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-// Custom hook for updating document title per route
+// Custom hook
 import usePageTitle from "./hooks/usePageTitle";
 
-// Scroll restoration component (ensures page starts at top on navigation)
-import ScrollToTop from "./components/ScrollToTop";
+// Route wrapper components (defined after imports)
+const HomeWrapper = () => {
+  usePageTitle("Home", { prefix: "SHAN ASSOCIATES | " });
+  return <Home />;
+};
+
+const ProductsWrapper = () => {
+  usePageTitle("Products", { prefix: "SHAN ASSOCIATES | " });
+  return <Products />;
+};
+
+const ContactWrapper = () => {
+  usePageTitle("Contact", { prefix: "SHAN ASSOCIATES | " });
+  return <Contact />;
+};
 
 function App() {
   return (
     <BrowserRouter
       future={{
-        v7_startTransition: true,    // Opt into React 18 concurrent features
-        v7_relativeSplatPath: true,  // Cleaner relative route matching
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
       }}
     >
       <ScrollToTop />
       <Navbar />
 
-      {/* Suspense fallback while lazy pages load */}
       <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route path="/" element={<HomeWrapper />} />
@@ -45,21 +58,5 @@ function App() {
     </BrowserRouter>
   );
 }
-
-// ----- Route Wrappers (for side effects like title updates) -----
-const HomeWrapper = () => {
-  usePageTitle("SHAN ASSOCIATES | Home");
-  return <Home />;
-};
-
-const ProductsWrapper = () => {
-  usePageTitle("SHAN ASSOCIATES | Our Products");
-  return <Products />;
-};
-
-const ContactWrapper = () => {
-  usePageTitle("SHAN ASSOCIATES | Contact Us");
-  return <Contact />;
-};
 
 export default App;
