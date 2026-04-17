@@ -4,34 +4,45 @@
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="theme-color" content="#000000" />
-    
+    <meta name="theme-color" content="#0a7f2e" />
+
     <!-- Primary Meta Tags -->
-    <title>SHAN ASSOCIATES | Building Materials Supplier</title>
-    <meta name="title" content="SHAN ASSOCIATES | Building Materials Supplier" />
+    <title>SHAN ASSOCIATES | Building Materials Supplier – TMT Bars, Cement, Pipes & More</title>
+    <meta name="title" content="SHAN ASSOCIATES | Building Materials Supplier – TMT Bars, Cement, Pipes & More" />
     <meta
       name="description"
-      content="SHAN ASSOCIATES provides expert legal advisory, corporate consulting, and compliance services tailored to businesses and individuals in India."
+      content="SHAN ASSOCIATES is a trusted building materials shop offering branded TMT steel bars, cement, pipes, roofing sheets, tile adhesives, hardware, and rain gutters. Quality supplies for construction projects across India."
     />
-    <meta name="keywords" content="legal services, corporate law, consulting, India, SHAN ASSOCIATES" />
+    <meta
+      name="keywords"
+      content="building materials, TMT steel bars, cement supplier, pipes, roofing sheets, tile adhesives, hardware shop, rain gutters, construction materials, SHAN ASSOCIATES, India"
+    />
     <meta name="author" content="SHAN ASSOCIATES" />
     <meta name="robots" content="index, follow" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.shanassociates.com/" />
-    <meta property="og:title" content="SHAN ASSOCIATES | Professional Legal & Consulting Services" />
-    <meta property="og:description" content="Expert legal advisory and corporate consulting services in India." />
+    <meta property="og:title" content="SHAN ASSOCIATES | Premium Building Materials Supplier" />
+    <meta
+      property="og:description"
+      content="Your one-stop shop for branded TMT bars, cement, pipes, roofing sheets, tile adhesives, hardware, and rain gutters. Reliable supplies for every construction need."
+    />
     <meta property="og:image" content="%PUBLIC_URL%/og-image.png" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:site_name" content="SHAN ASSOCIATES" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://www.shanassociates.com/" />
-    <meta property="twitter:title" content="SHAN ASSOCIATES | Professional Legal & Consulting Services" />
-    <meta property="twitter:description" content="Expert legal advisory and corporate consulting services in India." />
+    <meta property="twitter:title" content="SHAN ASSOCIATES | Premium Building Materials Supplier" />
+    <meta
+      property="twitter:description"
+      content="Shop branded TMT steel bars, cement, pipes, roofing sheets, tile adhesives, hardware, and rain gutters at SHAN ASSOCIATES."
+    />
     <meta property="twitter:image" content="%PUBLIC_URL%/og-image.png" />
 
-    <!-- Canonical URL (prevents duplicate content issues) -->
+    <!-- Canonical URL -->
     <link rel="canonical" href="https://www.shanassociates.com/" />
 
     <!-- Apple Touch Icon -->
@@ -40,11 +51,35 @@
     <!-- Web App Manifest -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-    <!-- Preconnect to external origins (example for Google Fonts) -->
+    <!-- Preconnect for Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Optional: Add a no-js fallback message -->
+    <!-- JSON-LD Structured Data for Local Business -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "HardwareStore",
+        "name": "SHAN ASSOCIATES",
+        "description": "Building materials supplier offering TMT steel bars, cement, pipes, roofing sheets, tile adhesives, hardware, and rain gutters.",
+        "url": "https://www.shanassociates.com/",
+        "telephone": "+91-XXXXXXXXXX",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Your Street Address",
+          "addressLocality": "Your City",
+          "addressRegion": "Your State",
+          "postalCode": "XXXXXX",
+          "addressCountry": "IN"
+        },
+        "openingHours": "Mo-Sa 09:00-20:00",
+        "sameAs": [
+          "https://www.facebook.com/shanassociates",
+          "https://www.instagram.com/shanassociates"
+        ]
+      }
+    </script>
+
     <noscript>
       <style>
         .no-js-message {
@@ -64,7 +99,7 @@
     </noscript>
 
     <div id="root">
-      <!-- Optional: Inline loading spinner for perceived performance -->
+      <!-- Inline loading spinner -->
       <style>
         .app-loader {
           display: flex;
@@ -72,16 +107,16 @@
           align-items: center;
           height: 100vh;
           width: 100vw;
-          background-color: #f5f5f5;
+          background-color: #f8fafc;
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
         .app-loader-spinner {
-          border: 4px solid rgba(0, 0, 0, 0.1);
-          border-left-color: #000000;
+          border: 4px solid rgba(10, 127, 46, 0.15);
+          border-left-color: #0a7f2e;
           border-radius: 50%;
-          width: 40px;
-          height: 40px;
-          animation: spin 1s linear infinite;
+          width: 48px;
+          height: 48px;
+          animation: spin 0.8s linear infinite;
         }
         @keyframes spin {
           to { transform: rotate(360deg); }
@@ -91,6 +126,5 @@
         <div class="app-loader-spinner"></div>
       </div>
     </div>
-    <!-- The loading spinner will be replaced instantly when React hydrates -->
   </body>
 </html>
