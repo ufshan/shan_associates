@@ -7,15 +7,14 @@ import WhatsAppButton from "./components/WhatsappButton";
 import Footer from "./components/Footer";
 import PageLoader from "./components/PageLoader";
 import ScrollToTop from "./components/ScrollToTop";
+// Custom hook
+import usePageTitle from "./hooks/usePageTitle";
 
 // Lazy-loaded page components
 const Home = lazy(() => import("./pages/Home"));
 const Products = lazy(() => import("./pages/Products"));
 const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
-
-// Custom hook
-import usePageTitle from "./hooks/usePageTitle";
 
 // Route wrapper components (defined after imports)
 const HomeWrapper = () => {
