@@ -1,37 +1,54 @@
-/* Base styles with better reset and accessibility */
+/* -------------------------------
+   Base Reset & Accessibility
+------------------------------- */
+nav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 nav a {
   position: relative;
   text-decoration: none;
-  color: currentColor; /* Inherits parent color instead of default blue */
+  color: currentColor;
+  font-weight: 500;
+  padding: 0.5rem 0;
   display: inline-block;
-  padding: 0.25rem 0; /* Better click area */
+  transition: color 0.2s ease;
+  
+  /* Prevent text from shifting when underline appears */
+  transform: translateZ(0);
 }
 
-/* Improved underline animation */
+/* -------------------------------
+   Underline Animation (Core)
+------------------------------- */
 nav a::after {
   content: "";
   position: absolute;
-  bottom: -4px;
+  bottom: -2px;
   left: 0;
   width: 0;
   height: 2px;
-  background: currentColor; /* Matches link color */
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother easing */
-  border-radius: 2px; /* Rounded edges for modern look */
+  background: currentColor;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 2px;
+  
+  /* GPU acceleration for smoother animation */
+  will-change: width;
 }
 
-/* Hover state */
-nav a:hover::after {
-  width: 100%;
-}
-
-/* Optional: Keep underline visible on active page */
+nav a:hover::after,
+nav a:focus-visible::after,
 nav a.active::after {
   width: 100%;
-  background: currentColor;
 }
 
-/* Optional: Reverse animation (from center) */
+/* -------------------------------
+   Variant: Center Expand
+------------------------------- */
 nav a.center-underline::after {
   left: 50%;
   transform: translateX(-50%);
@@ -41,7 +58,9 @@ nav a.center-underline:hover::after {
   width: 100%;
 }
 
-/* Optional: Slide from right effect */
+/* -------------------------------
+   Variant: Right Slide
+------------------------------- */
 nav a.right-underline::after {
   left: auto;
   right: 0;
@@ -53,10 +72,40 @@ nav a.right-underline:hover::after {
   right: auto;
 }
 
-/* Accessibility: Respect reduced motion preferences */
+/* -------------------------------
+   Active Page Indicator
+------------------------------- */
+/* Use a distinct color or extra thickness for the current route */
+nav a.active {
+  color: var(--primary-color, #0056b3);
+  font-weight: 600;
+}
+
+nav a.active::after {
+  width: 100%;
+  height: 3px;
+  background: var(--primary-color, #0056b3);
+}
+
+/* -------------------------------
+   Accessibility & Focus States
+------------------------------- */
+/* Remove default outline and add custom one for :focus-visible */
+nav a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.3);
+  border-radius: 4px;
+}
+
+nav a:focus-visible::after {
+  width: 100%;
+}
+
+/* Respect user motion preferences */
 @media (prefers-reduced-motion: reduce) {
   nav a::after {
     transition: none;
+    will-change: auto;
   }
   
   nav a:hover::after {
@@ -64,13 +113,23 @@ nav a.right-underline:hover::after {
   }
 }
 
-/* Focus styles for keyboard navigation */
-nav a:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 4px;
-  border-radius: 2px;
+/* -------------------------------
+   Touch Device Optimizations
+------------------------------- */
+@media (hover: none) and (pointer: coarse) {
+  nav a {
+    padding: 0.75rem 0;  /* Larger tap target */
+  }
+  
+  /* Underline always visible on active page, hidden elsewhere on mobile */
+  nav a:not(.active)::after {
+    display: none;
+  }
 }
 
-nav a:focus-visible::after {
-  width: 100%;
+/* -------------------------------
+   Utility: Disable Underline
+------------------------------- */
+nav a.no-underline::after {
+  display: none;
 }
