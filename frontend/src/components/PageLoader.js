@@ -1,38 +1,55 @@
+// components/PageLoader.js (inline version)
 import React from "react";
-import "./PageLoader.css";
 
-/**
- * A full‑page loading indicator with spinner and optional custom message.
- *
- * @param {Object} props
- * @param {string} [props.message="Loading..."] - Custom loading text.
- * @param {React.ReactNode} [props.children] - Additional content (e.g., logo).
- * @param {boolean} [props.showBrand=true] - Whether to display "SHAN ASSOCIATES" subtitle.
- */
-const PageLoader = ({ message = "Loading...", children, showBrand = true }) => {
-  return (
-    <div
-      className="page-loader"
-      role="status"
-      aria-live="polite"
-      aria-label={message}
-    >
-      {/* Optional custom content (e.g., animated logo) */}
-      {children && <div className="page-loader__custom">{children}</div>}
-
-      {/* Spinner animation */}
-      {!children && <div className="spinner" aria-hidden="true" />}
-
-      {/* Loading message */}
-      <p>
-        {message}
-        {showBrand && <span className="page-loader__brand">SHAN ASSOCIATES</span>}
-      </p>
-
-      {/* Visually hidden text for screen readers */}
-      <span className="visually-hidden">Page is loading, please wait.</span>
-    </div>
-  );
+const styles = {
+  overlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#f8fafc",
+    zIndex: 9999,
+  },
+  spinner: {
+    width: "48px",
+    height: "48px",
+    border: "4px solid rgba(10, 127, 46, 0.15)",
+    borderLeftColor: "#0a7f2e",
+    borderRadius: "50%",
+    animation: "spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite",
+  },
+  text: {
+    marginTop: "1.5rem",
+    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+    fontSize: "1rem",
+    fontWeight: 500,
+    color: "#1e293b",
+    opacity: 0.8,
+  },
 };
+
+// Inject keyframe animation into document head
+if (typeof document !== "undefined") {
+  const styleSheet = document.createElement("style");
+  styleSheet.textContent = `
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  `;
+  document.head.appendChild(styleSheet);
+}
+
+const PageLoader = () => (
+  <div style={styles.overlay} role="status" aria-label="Loading page content">
+    <div style={styles.spinner} />
+    <p style={styles.text}>Loading...</p>
+  </div>
+);
 
 export default PageLoader;
